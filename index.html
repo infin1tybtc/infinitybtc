@@ -4,34 +4,115 @@
 <title>InfinityBTC</title>
 
 <style>
-body {margin:0;font-family:Arial;background:#0a0a0a;color:white;}
-nav {padding:20px;background:#111;}
-nav a {margin-right:15px;color:white;cursor:pointer;}
-.section {display:none;padding:40px;text-align:center;}
-.active {display:block;}
-.card {border:1px solid #333;padding:20px;margin:20px;display:inline-block;}
-button {padding:10px;background:orange;border:none;}
+body {
+  margin:0;
+  font-family:Arial;
+  background:#f5f5f5;
+}
+
+/* HEADER */
+header {
+  background:white;
+  border-bottom:1px solid #ddd;
+  padding:20px;
+  display:flex;
+  justify-content:space-between;
+  align-items:center;
+}
+
+.logo {
+  font-weight:bold;
+  font-size:20px;
+}
+
+.menu {
+  display:flex;
+  gap:20px;
+}
+
+.menu a {
+  text-decoration:none;
+  color:black;
+  cursor:pointer;
+}
+
+.cart {
+  cursor:pointer;
+  font-weight:bold;
+}
+
+/* SECTIONS */
+.section {
+  display:none;
+  padding:40px;
+  text-align:center;
+}
+
+.active {
+  display:block;
+}
+
+/* HERO */
+.hero {
+  background:white;
+  padding:80px 20px;
+}
+
+/* PRODUCTS */
+.grid {
+  display:flex;
+  flex-wrap:wrap;
+  justify-content:center;
+}
+
+.card {
+  background:white;
+  border:1px solid #ddd;
+  margin:15px;
+  padding:20px;
+  width:220px;
+}
+
+button {
+  background:#0d57a1;
+  color:white;
+  border:none;
+  padding:10px;
+  cursor:pointer;
+}
 </style>
 
 </head>
 
 <body>
 
-<nav>
+<header>
+<div class="logo">InfinityBTC</div>
+
+<div class="menu">
 <a onclick="show('home')">Home</a>
 <a onclick="show('catalogue')">Catalogue</a>
 <a onclick="show('account')">Account</a>
-<a onclick="show('cart')">Cart</a>
-</nav>
-
-<div id="home" class="section active">
-<h1>Infinity BTC</h1>
-<p>Physical Bitcoin collectible cards</p>
-<button onclick="show('catalogue')">View Catalogue</button>
 </div>
 
+<div class="cart" onclick="show('cart')">
+🛒 <span id="count">0</span>
+</div>
+</header>
+
+<!-- HOME -->
+<div id="home" class="section active">
+<div class="hero">
+<h1>Infinity BTC Cards</h1>
+<p>Premium physical Bitcoin collectibles</p>
+</div>
+</div>
+
+<!-- CATALOGUE -->
 <div id="catalogue" class="section">
 <h2>Catalogue</h2>
+
+<div class="grid">
 
 <div class="card">
 <h3>Black Edition</h3>
@@ -39,8 +120,16 @@ button {padding:10px;background:orange;border:none;}
 <button onclick="add()">Add to cart</button>
 </div>
 
+<div class="card">
+<h3>Bronze Edition</h3>
+<p>0.0001 BTC</p>
+<button onclick="add()">Add to cart</button>
 </div>
 
+</div>
+</div>
+
+<!-- ACCOUNT -->
 <div id="account" class="section">
 <h2>Account</h2>
 <input id="email" placeholder="Email"><br><br>
@@ -48,8 +137,9 @@ button {padding:10px;background:orange;border:none;}
 <button onclick="login()">Login</button>
 </div>
 
+<!-- CART -->
 <div id="cart" class="section">
-<h2>Cart</h2>
+<h2>Your Cart</h2>
 <p id="cartText">Empty</p>
 </div>
 
@@ -71,7 +161,13 @@ alert("Login first");
 show("account");
 return;
 }
-document.getElementById("cartText").innerText="1 item added";
+
+let count = localStorage.getItem("count") || 0;
+count++;
+localStorage.setItem("count", count);
+document.getElementById("count").innerText = count;
+
+document.getElementById("cartText").innerText = count + " item(s)";
 }
 </script>
 
