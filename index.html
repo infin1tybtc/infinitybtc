@@ -1,174 +1,200 @@
 <!DOCTYPE html>
-<html>
+<html lang="en">
 <head>
-<title>InfinityBTC</title>
+<meta charset="UTF-8">
+<meta name="viewport" content="width=device-width, initial-scale=1.0">
+<title>Satoshi Reserve</title>
 
 <style>
 body {
-  margin:0;
-  font-family:Arial;
-  background:#f5f5f5;
+    margin: 0;
+    font-family: Arial, Helvetica, sans-serif;
 }
 
 /* HEADER */
-header {
-  background:white;
-  border-bottom:1px solid #ddd;
-  padding:20px;
-  display:flex;
-  justify-content:space-between;
-  align-items:center;
+.header {
+    display: flex;
+    justify-content: space-between;
+    align-items: center;
+    padding: 20px 50px;
+    border-bottom: 1px solid #eee;
 }
 
 .logo {
-  font-weight:bold;
-  font-size:20px;
+    display: flex;
+    align-items: center;
 }
 
+.logo img {
+    width: 50px;
+    margin-right: 10px;
+}
+
+.logo-text h1 {
+    margin: 0;
+    font-size: 24px;
+}
+
+.logo-text span {
+    font-size: 12px;
+    color: gray;
+}
+
+/* MENU */
 .menu {
-  display:flex;
-  gap:20px;
+    display: flex;
+    gap: 30px;
+    align-items: center;
 }
 
 .menu a {
-  text-decoration:none;
-  color:black;
-  cursor:pointer;
+    text-decoration: none;
+    color: black;
+    cursor: pointer;
+}
+
+.menu a.active {
+    color: blue;
+    border-bottom: 2px solid blue;
 }
 
 .cart {
-  cursor:pointer;
-  font-weight:bold;
+    border: 1px solid blue;
+    padding: 5px 10px;
 }
 
 /* SECTIONS */
 .section {
-  display:none;
-  padding:40px;
-  text-align:center;
+    display: none;
+    padding: 40px;
 }
 
-.active {
-  display:block;
-}
-
-/* HERO */
-.hero {
-  background:white;
-  padding:80px 20px;
+.active-section {
+    display: block;
 }
 
 /* PRODUCTS */
-.grid {
-  display:flex;
-  flex-wrap:wrap;
-  justify-content:center;
+.products {
+    display: grid;
+    grid-template-columns: repeat(3, 1fr);
+    gap: 30px;
 }
 
 .card {
-  background:white;
-  border:1px solid #ddd;
-  margin:15px;
-  padding:20px;
-  width:220px;
+    border: 1px solid #eee;
+    padding: 20px;
+    text-align: center;
 }
 
 button {
-  background:#0d57a1;
-  color:white;
-  border:none;
-  padding:10px;
-  cursor:pointer;
+    background: blue;
+    color: white;
+    border: none;
+    padding: 10px;
+    cursor: pointer;
+}
+
+/* FORM */
+input {
+    display: block;
+    margin: 10px 0;
+    padding: 10px;
+    width: 250px;
 }
 </style>
-
 </head>
 
 <body>
 
-<header>
-<div class="logo">InfinityBTC</div>
+<!-- HEADER -->
+<div class="header">
+    <div class="logo">
+        <img src="https://upload.wikimedia.org/wikipedia/commons/4/46/Bitcoin.svg">
+        <div class="logo-text">
+            <h1>SATOSHI RESERVE</h1>
+            <span>Limited Edition Bitcoin Cards</span>
+        </div>
+    </div>
 
-<div class="menu">
-<a onclick="show('home')">Home</a>
-<a onclick="show('catalogue')">Catalogue</a>
-<a onclick="show('account')">Account</a>
+    <div class="menu">
+        <a onclick="show('home')" class="active">Home</a>
+        <a onclick="show('catalogue')">Catalogue</a>
+        <a onclick="show('account')">Account</a>
+        <div class="cart" onclick="show('cart')">Cart (<span id="cartCount">0</span>)</div>
+    </div>
 </div>
-
-<div class="cart" onclick="show('cart')">
-🛒 <span id="count">0</span>
-</div>
-</header>
 
 <!-- HOME -->
-<div id="home" class="section active">
-<div class="hero">
-<h1>Infinity BTC Cards</h1>
-<p>Premium physical Bitcoin collectibles</p>
-</div>
+<div id="home" class="section active-section">
+    <h2>Welcome to Satoshi Reserve</h2>
+    <p>Exclusive limited edition Bitcoin collectible cards.</p>
 </div>
 
 <!-- CATALOGUE -->
 <div id="catalogue" class="section">
-<h2>Catalogue</h2>
+    <h2>Catalogue</h2>
 
-<div class="grid">
+    <div class="products">
 
-<div class="card">
-<h3>Black Edition</h3>
-<p>0.1 BTC</p>
-<button onclick="add()">Add to cart</button>
-</div>
+        <div class="card">
+            <h3>Black Edition</h3>
+            <p>0.1 BTC</p>
+            <button onclick="addToCart('Black Edition')">Add</button>
+        </div>
 
-<div class="card">
-<h3>Bronze Edition</h3>
-<p>0.0001 BTC</p>
-<button onclick="add()">Add to cart</button>
-</div>
+        <div class="card">
+            <h3>Bronze Edition</h3>
+            <p>0.01 BTC</p>
+            <button onclick="addToCart('Bronze Edition')">Add</button>
+        </div>
 
-</div>
+        <div class="card">
+            <h3>Platinum Edition</h3>
+            <p>0.5 BTC</p>
+            <button onclick="addToCart('Platinum Edition')">Add</button>
+        </div>
+
+    </div>
 </div>
 
 <!-- ACCOUNT -->
 <div id="account" class="section">
-<h2>Account</h2>
-<input id="email" placeholder="Email"><br><br>
-<input placeholder="Password"><br><br>
-<button onclick="login()">Login</button>
+    <h2>Create Account</h2>
+
+    <input type="text" placeholder="Name">
+    <input type="email" placeholder="Email">
+    <input type="file">
+    <button>Create Account</button>
 </div>
 
 <!-- CART -->
 <div id="cart" class="section">
-<h2>Your Cart</h2>
-<p id="cartText">Empty</p>
+    <h2>Your Cart</h2>
+    <ul id="cartItems"></ul>
 </div>
 
 <script>
-function show(page){
-document.querySelectorAll('.section').forEach(s=>s.classList.remove('active'));
-document.getElementById(page).classList.add('active');
+
+let cart = [];
+
+function show(section) {
+    document.querySelectorAll('.section').forEach(s => s.classList.remove('active-section'));
+    document.getElementById(section).classList.add('active-section');
+
+    document.querySelectorAll('.menu a').forEach(a => a.classList.remove('active'));
 }
 
-function login(){
-localStorage.setItem("user","ok");
-alert("Logged in");
-show("catalogue");
+function addToCart(item) {
+    cart.push(item);
+
+    document.getElementById("cartCount").innerText = cart.length;
+
+    let list = document.getElementById("cartItems");
+    let li = document.createElement("li");
+    li.innerText = item;
+    list.appendChild(li);
 }
 
-function add(){
-if(!localStorage.getItem("user")){
-alert("Login first");
-show("account");
-return;
-}
-
-let count = localStorage.getItem("count") || 0;
-count++;
-localStorage.setItem("count", count);
-document.getElementById("count").innerText = count;
-
-document.getElementById("cartText").innerText = count + " item(s)";
-}
 </script>
 
 </body>
